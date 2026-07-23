@@ -18,7 +18,9 @@ test("birthday world has the personal content and correct date", async () => {
 
 test("the expanded site contains all interactive birthday chapters", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  for (const text of ["16 ПРИЧИН", "16 КРИСТАЛЛОВ", "СОЗВЕЗДИЕ НАШИХ МОМЕНТОВ", "ПАСПОРТ ТВОЕГО ОС", "ШЕСТЬ ОБЕЩАНИЙ", "ПОДАРКИ, КОТОРЫЕ НЕ ЗАКАНЧИВАЮТСЯ"]) assert.match(page, new RegExp(text));
+  for (const text of ["16 КРИСТАЛЛОВ", "СОЗВЕЗДИЕ НАШИХ МОМЕНТОВ", "ПАСПОРТ ТВОЕГО ОС", "ШЕСТЬ ОБЕЩАНИЙ", "ПОДАРКИ, КОТОРЫЕ НЕ ЗАКАНЧИВАЮТСЯ"]) assert.match(page, new RegExp(text));
+  assert.doesNotMatch(page, /16 ПРИЧИН, ПОЧЕМУ ТЫ ОСОБЕННАЯ/);
+  assert.doesNotMatch(page, /Свидание по твоему сценарию/);
   assert.doesNotMatch(page, /PixelArena|Drive Ahead|онлайн-комнат/i);
 });
 
@@ -29,6 +31,19 @@ test("mood boost is one-time, remembered and has the safe joke", async () => {
   assert.match(page, /disabled=\{boostUsed\}/);
   assert.match(page, /Соси… чупа-чупс/);
   assert.match(page, /Одного буста тебе хватит/);
+});
+
+test("admin mode is IP restricted and can control the countdown and boost version", async () => {
+  const [auth, route, page] = await Promise.all([
+    readFile(new URL("lib/admin-auth.ts", root), "utf8"),
+    readFile(new URL("app/api/admin/state/route.ts", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+  ]);
+  assert.match(auth, /91\.237\.40\.25/);
+  assert.match(route, /toggle-countdown/);
+  assert.match(route, /reset-boost/);
+  assert.match(page, /countdownOnly/);
+  assert.match(page, /boostVersion/);
 });
 
 test("mobile layouts are explicitly supported", async () => {
