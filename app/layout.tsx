@@ -9,18 +9,18 @@ export async function generateMetadata(): Promise<Metadata> {
   const ogImage = `${protocol}://${host}/og.png`;
 
   return {
-    title: "Мифический уровень 16 ♡",
-    description: "Маленький мир и большое поздравление для самой особенной девушки.",
+    title: "Твоя глава 16 • 13 августа ♡",
+    description: "Большое личное поздравление с шестнадцатилетием для самой особенной девушки.",
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
     openGraph: {
-      title: "Мифический уровень 16",
+      title: "Твоя глава 16 • 13 августа",
       description: "Для самой особенной девушки ♡",
       type: "website",
       images: [{ url: ogImage, width: 1536, height: 1024, alt: "Мифический уровень 16" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Мифический уровень 16",
+      title: "Твоя глава 16 • 13 августа",
       description: "Для самой особенной девушки ♡",
       images: [ogImage],
     },
