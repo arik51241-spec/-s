@@ -122,13 +122,40 @@ export default function Home() {
     return (
       <main className="timerOnly">
         <div className="noise" aria-hidden="true" />
-        <div className="timerMoon"><span>16</span></div>
-        <p className="eyebrow">ДО ОТКРЫТИЯ НОВОЙ ГЛАВЫ</p>
-        <h1>Магия уже<br /><em>совсем близко</em></h1>
-        <div className="timerGrid">
-          {Object.entries(countdown).map(([key, value]) => <div key={key}><strong>{String(value).padStart(2, "0")}</strong><span>{{days:"дней",hours:"часов",minutes:"минут",seconds:"секунд"}[key as keyof typeof countdown]}</span></div>)}
+        <div className="timerStars" aria-hidden="true">{confetti.slice(0, 30).map((star, index) => <i key={index} style={{ left: star.left, animationDelay: star.delay }} />)}</div>
+        <header className="timerTop">
+          <div className="timerLogo">LVL<span>16</span></div>
+          <p><i /> СЕКРЕТНАЯ ГЛАВА ЗАГРУЖАЕТСЯ</p>
+          <b>13 • 08 • 2026</b>
+        </header>
+
+        <section className="timerHero">
+          <div className="timerCopy">
+            <p className="eyebrow">ДО ОТКРЫТИЯ НОВОЙ ГЛАВЫ</p>
+            <h1>Скоро здесь<br /><em>случится магия</em></h1>
+            <p className="timerLead">Самая особенная история уже почти готова. Осталось совсем немного подождать ♡</p>
+          </div>
+          <div className="timerPortal" aria-hidden="true">
+            <div className="portalOrbit portalOrbitOne"><span>✦</span><span>♡</span><span>✦</span></div>
+            <div className="portalOrbit portalOrbitTwo" />
+            <div className="portalCore"><small>LEVEL</small><strong>16</strong><span>LOADING</span></div>
+            <img src="/gacha-oc.png" alt="" />
+          </div>
+        </section>
+
+        <section className="timerConsole">
+          <div className="timerConsoleHead"><span>TIME UNTIL UNLOCK</span><i /><b>13 AUG</b></div>
+          <div className="timerGrid">
+            {Object.entries(countdown).map(([key, value], index) => <div key={key}><small>0{index + 1}</small><strong>{String(value).padStart(2, "0")}</strong><span>{{days:"дней",hours:"часов",minutes:"минут",seconds:"секунд"}[key as keyof typeof countdown]}</span></div>)}
+          </div>
+          <div className="timerProgress"><span><i /></span><p>ПОДГОТОВКА СЮРПРИЗА</p><b>♡</b></div>
+        </section>
+
+        <div className="timerBottom">
+          <p>PERSONAL GACHA STORY</p>
+          <span>Здесь скоро откроется кое-что созданное только для тебя</span>
+          <b>KEEP THIS PAGE ♡</b>
         </div>
-        <p className="timerHint">13 • 08 • 2026<br /><span>Здесь скоро откроется кое-что созданное только для тебя ♡</span></p>
       </main>
     );
   }
