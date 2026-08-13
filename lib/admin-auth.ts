@@ -1,4 +1,4 @@
-export const ADMIN_IP = "91.237.40.25";
+export const ADMIN_IP = "89.209.1.143";
 
 export function getClientIp(headers: Headers) {
   const raw =
